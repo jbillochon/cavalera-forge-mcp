@@ -1,0 +1,33 @@
+# Public MCP server Cavalera Forge (forge.cavalera.news).
+[Unit]
+Description=cavalera-forge-mcp (Streamable HTTP, 127.0.0.1:8793)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+Environment=FORGE_DATA_DIR=/opt/cavalera-bot/data
+Environment=FORGE_CACHE_DIR=/opt/cavalera-forge-mcp/cache
+Environment=FORGE_MCP_ALLOWED_HOSTS=forge.cavalera.news
+Environment=UEX_MAX_CALLS_PER_MIN=40
+# claude.ai custom connectors insist on OAuth: auto-approving facade.
+Environment=FORGE_MCP_OAUTH_SHIM=1
+Environment=FORGE_MCP_PUBLIC_URL=https://forge.cavalera.news
+ExecStart=/opt/cavalera-forge-mcp/venv/bin/cavalera-forge-mcp --http --host 127.0.0.1 --port 8793
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/opt/cavalera-forge-mcp/cache
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes
+MemoryMax=512M
+
+[Install]
+WantedBy=multi-user.target
