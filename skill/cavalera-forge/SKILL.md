@@ -68,8 +68,9 @@ Arrowhead, what do I need and where do I get it": `product_recipe` ->
 
 ## Setup
 
-- Claude (web, desktop, mobile): Settings > Connectors > Add custom
-  connector, URL `https://forge.cavalera.news/mcp`, then Connect.
+- Claude (web or desktop): Customize > Connectors > + Add > Add custom
+  connector, URL `https://forge.cavalera.news/mcp`, no account needed. In a chat, switch it on
+  with + > Connectors. Skills and instructions: https://cavalera.news/claude
 - Claude Code: `claude mcp add --transport http cavalera-forge https://forge.cavalera.news/mcp`
 - Local: `uvx --from git+https://github.com/jbillochon/cavalera-forge-mcp cavalera-forge-mcp`
   (downloads the published data once a day).
