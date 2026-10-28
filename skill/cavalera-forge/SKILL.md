@@ -36,6 +36,7 @@ memory: recipes, locations and prices change with every game patch.
 | Where to refine X | `refinery_yields` |
 | Where to sell X at a terminal | `terminal_prices` |
 | Who sells / buys X between players | `marketplace_search` (`marketplace_find_items` for non-crafting items) |
+| Sellers most likely to answer, still playing | `marketplace_search` with `sort="seller_activity"` (last listing posted, away from game; UEX has no last-login date) |
 
 Chain tools for planning questions. Example, "I want to craft the
 Arrowhead, what do I need and where do I get it": `product_recipe` ->

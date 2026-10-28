@@ -54,7 +54,9 @@ Cavalera Forge Discord bot.
   version the data is for (data_status) when it matters.
 - Marketplace: give listing URLs, quote price with its unit, flag qualities
   read from titles ('~886') or defaults ('500?'), and remind that trades
-  happen between players at their own risk.
+  happen between players at their own risk. sort='seller_activity' ranks by
+  each seller's latest listing posted on UEX (no last-login date exists):
+  say "last posted N days ago", not "last online".
 """
 
 READ_ONLY = ToolAnnotations(readOnlyHint=True, destructiveHint=False,
@@ -225,14 +227,16 @@ def build_server(forge=None, market=None, data_dir=None, cache_dir=None):
         seller: Annotated[str | None, Field(description="Substring of the seller's username.")] = None,
         text: Annotated[str | None, Field(description="Words that must all appear in the title.")] = None,
         category: Annotated[str | None, Field(description="UEX category or section, e.g. 'Helmets'.")] = None,
-        sort: Annotated[Literal["quality", "recent", "price"], Field(description=(
-            "quality: best first; recent: newest first; price: cheapest first."))] = "quality",
+        sort: Annotated[Literal["quality", "recent", "price", "seller_activity"], Field(description=(
+            "quality: best first; recent: newest first; price: cheapest first; "
+            "seller_activity: sellers who posted on UEX most recently first, sellers "
+            "marked away from the game last (adds a seller_activity block per result)."))] = "quality",
         one_per_seller: bool = True,
         include_unknown_quality: bool = True,
         limit: Annotated[int, Field(ge=1, le=50)] = 10,
     ) -> dict:
         """UEX player marketplace listings with combined filters, ranked by
-        quality, recency or price, one per seller, each with a direct link.
+        quality, recency, price or seller activity, one per seller, each with a direct link.
         Qualities read from titles are marked '~', defaults '500?'."""
         return guarded(market.search, item=item, id_items=id_items, text=text,
                        category=category, operation=operation, quality_min=quality_min,

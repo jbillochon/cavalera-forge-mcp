@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cavalera-forge-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server for Star Citizen crafting, mining and trading: recipes, quality effects, mining locations, scan signatures, refineries, prices and the UEX player marketplace."
 readme = "README.md"
 license = "MIT"
@@ -19,7 +19,7 @@ classifiers = [
 ]
 dependencies = [
     "mcp>=2.3,<3",
-    "uex-market-mcp @ git+https://github.com/jbillochon/uex-market-mcp@v0.3.0",
+    "uex-market-mcp @ git+https://github.com/jbillochon/uex-market-mcp@25e8ac37cbe60e9b3bc0079cacd3c1e805d3ad6c",
 ]
 
 [project.urls]
